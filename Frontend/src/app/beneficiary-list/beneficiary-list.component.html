@@ -1,0 +1,77 @@
+<app-header></app-header>
+<div class="container">
+  <div class="mt-3">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="#">Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Beneficiary</li>
+      </ol>
+    </nav> 
+    <div class="card">
+      <div class=" card-header">
+        <div class="row">
+          <div class="col-6">
+            <h3>Beneficiary List</h3>
+          </div>
+          <div class="col">
+            <select class="form-control" id="userType" (change)="getUserList($event)">
+              <option value="null">--Please select your user type--</option>
+              <option value="health-worker">Health Worker</option>
+              <option value="diabetes-cancer-heart">Diabetes/Cancer/Heart Patient</option>
+              <option value="senior citizen">Senior Sitizen</option>
+              <option value="others">Others</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="row" *ngIf="success">
+          <div class="col">
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+              <strong>Success! </strong> User has been vaccinated successfully.
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">SlNo:</th>
+                  <th scope="col">Name</th>
+                  <th scope="col">Email</th>
+                  <th scope="col">Mobile</th>
+                  <th scope="col">User Type</th>
+                  <th>Action</th>
+
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let userreg of registers; let i= index">
+                  <td scope="row">{{ i + 1 }}</td>
+                  <td>{{userreg.name}}</td>
+                  <td>{{userreg.email}}</td>
+                  <td>{{userreg.mobile}}</td>
+                  <td>{{userreg.userType}}</td>
+                  <td>
+                    <button class="btn btn-sm btn-success" (click)="makeVaccinated(userreg._id)">
+                      <i class="far fa-check"></i> Make Vaccinated
+                    </button>
+                    <button class="ms-1 btn btn-sm btn-danger" (click)="deleteuser(userreg._id)">
+                      <i class="far fa-trash"></i>
+                    </button>
+                  </td>
+                </tr>
+                <tr *ngIf="registers.length === 0">
+                  <td colspan="6" class="text-center">User not found.</td>
+                </tr>
+
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

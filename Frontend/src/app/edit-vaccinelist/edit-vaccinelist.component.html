@@ -1,0 +1,258 @@
+<app-header></app-header>
+<div class="container mt-4">
+  <div class="row justify-content-center">
+    <div class="col-10">
+      
+      <div *ngIf="success" class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>Success! </strong>You have registered succefully! You will get an email regarding the date of vaccination soon.
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+
+      <div class="card shadow bg-white rounded">
+        <div class="card-header bg-white">
+          <h3>Edit User / Add to Beneficiary</h3>
+        </div>
+        <div class="card-body">
+          <form [formGroup]="editUserForm" (ngSubmit)="updateUser()">
+
+            <div class="row">
+              <div class="col-md-6">
+                <label for="name" class="form-label">Name</label>
+                <input 
+                  type="text" 
+                  class="form-control"
+                  [class.is-invalid]="f.name.touched && f.name.invalid"
+                  id="name"
+                  formControlName="name"
+                  placeholder="Enter your name"
+                >
+                <div class="invalid-feedback" *ngIf="f.name.touched && f.name.invalid">
+                  <span *ngIf="f.name.errors.required">
+                    Name is required.
+                  </span>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <label for="email" class="form-label">Email</label>
+                <input 
+                  type="text" 
+                  class="form-control"
+                  [class.is-invalid]="f.email.touched && f.email.invalid"
+                  id="email"
+                  formControlName="email"
+                  placeholder="Enter your email"
+                >
+                <div class="invalid-feedback" *ngIf="f.email.touched && f.email.invalid">
+                  <span *ngIf="f.email.errors.required">
+                    Email is required.
+                  </span>
+                  <span *ngIf="f.email.errors.email">
+                    Please enter a valid email.
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <div class="row mt-3">
+              <div class="col-md-6">
+                <label for="mobile" class="form-label">Mobile</label>
+                <input 
+                  type="text" 
+                  class="form-control"
+                  [class.is-invalid]="f.mobile.touched && f.mobile.invalid"
+                  id="mobile"
+                  formControlName="mobile"
+                  placeholder="Enter your mobile"
+                >
+                <div class="invalid-feedback" *ngIf="f.mobile.touched && f.mobile.invalid">
+                  <span *ngIf="f.mobile.errors.required">
+                    Mobile number is required.
+                  </span>
+                  <span *ngIf="f.mobile.errors.pattern">
+                    Invalid mobile number.
+                  </span>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <label for="dob" class="form-label">dob</label>
+                <input 
+                  type="date" 
+                  class="form-control"
+                  [class.is-invalid]="f.dob.touched && f.dob.invalid"
+                  id="dob"
+                  formControlName="dob"
+                  placeholder="Enter your dob"
+                >
+                <div class="invalid-feedback" *ngIf="f.dob.touched && f.dob.invalid">
+                  <span *ngIf="f.dob.errors.required">
+                    Dob is required.
+                  </span>
+                </div>
+              </div>
+            </div>
+            
+            <div class="row mt-3">
+              <div class="col-md-6">
+                <label for="gender" class="form-label">Gender</label>
+                <select  
+                  class="form-control"
+                  [class.is-invalid]="f.gender.touched && f.gender.invalid"
+                  id="gender"
+                  formControlName="gender"
+                >
+                  <option value="null">--Please select your gender--</option>
+                  <option value="male">Male</option>
+                  <option value="female">Female</option>
+                  <option value="transgender">Transgender</option>
+                </select>
+                <div class="invalid-feedback" *ngIf="f.gender.touched && f.gender.invalid">
+                  <span *ngIf="f.gender.errors.required">
+                    Gender is required.
+                  </span>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <label for="aadhar" class="form-label">Aadhar</label>
+                <input 
+                  type="text" 
+                  class="form-control"
+                  [class.is-invalid]="f.aadhar.touched && f.aadhar.invalid"
+                  id="aadhar"
+                  formControlName="aadhar"
+                  placeholder="Enter your aadhar"
+                >
+                <div class="invalid-feedback" *ngIf="f.aadhar.touched && f.aadhar.invalid">
+                  <span *ngIf="f.aadhar.errors.required">
+                    Aadhar is required.
+                  </span>
+                  <span *ngIf="f.aadhar.errors.pattern">
+                    Enter 16 digit Aadhar number.
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <div class="row mt-3">
+              <div class="col-md-6">
+                <label for="userType" class="form-label">User Type</label>
+                <select  
+                  class="form-control"
+                  [class.is-invalid]="f.userType.touched && f.userType.invalid"
+                  id="userType"
+                  formControlName="userType"
+                >
+                  <option value="null">--Please select your user type--</option>
+                  <option value="health-worker">Health Worker</option>
+                  <option value="diabetes-cancer-heart">Diabetes/Cancer/Heart Patient</option>
+                  <option value="senior citizen">Senior Sitizen</option>
+                  <option value="others">Others</option>
+                </select>
+                <div class="invalid-feedback" *ngIf="f.userType.touched && f.userType.invalid">
+                  <span *ngIf="f.userType.errors.required">
+                    User Type is required.
+                  </span>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <label for="district" class="form-label">district</label>
+                <select  
+                  class="form-control"
+                  [class.is-invalid]="f.district.touched && f.district.invalid"
+                  id="district"
+                  formControlName="district"
+                  (change)="changeDistrict($event)"
+                >
+                  <option value="null">--Choose your district--</option>
+                  <option value="Kasargod">Kasargod</option>
+                  <option value="Kannur">Kannur</option>
+                  <option value="Wayanad">Wayanad</option>
+                  <option value="Kozhikode">Kozhikode</option>
+                  <option value="Malappuram">Malappuram</option>
+                  <option value="Palakkad">Palakkad</option>
+                  <option value="Thrissur">Thrissur</option>
+                  <option value="Ernakulam">Ernakulam</option>
+                  <option value="Idukki">Idukki</option>
+                  <option value="Kottayam">Kottayam</option>
+                  <option value="Alappuzha">Alappuzha</option>
+                  <option value="Pathanamthitta">Pathanamthitta</option>
+                  <option value="Kollam">Kollam</option>
+                  <option value="Thiruvananthapuram">Thiruvananthapuram</option>
+                </select>
+                <div class="invalid-feedback" *ngIf="f.district.touched && f.district.invalid">
+                  <span *ngIf="f.district.errors.required">
+                    district is required.
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <div class="row mt-3">
+              <div class="col-md-12">
+                <label for="address" class="form-label">Address</label>
+                <textarea 
+                  type="text" 
+                  class="form-control"
+                  [class.is-invalid]="f.address.touched && f.address.invalid"
+                  id="address"
+                  formControlName="address"
+                  placeholder="Enter your address"
+                ></textarea>
+                <div class="invalid-feedback" *ngIf="f.address.touched && f.address.invalid">
+                  <span *ngIf="f.address.errors.required">
+                    Address is required.
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <div class="row mt-3">
+              <div class="col-md-6">
+                <label for="vaccinationCentre" class="form-label">Vaccination Centre</label>
+                <select  
+                  class="form-control"
+                  [class.is-invalid]="f.vaccinationCentre.touched && f.vaccinationCentre.invalid"
+                  id="vaccinationCentre"
+                  formControlName="vaccinationCentre"
+                >
+                  <option value="null">--Please select vaccination centre--</option>
+                  <option value="centre-1" *ngFor="let centre of centres" [value]="centre.centre">{{centre.centre}}</option>
+                </select>
+                <div class="invalid-feedback" *ngIf="f.vaccinationCentre.touched && f.vaccinationCentre.invalid">
+                  <span *ngIf="f.vaccinationCentre.errors.required">
+                    Vaccination centre is required.
+                  </span>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <label for="vaccinationDate" class="form-label">Vaccination Date</label>
+                <input 
+                  type="date" 
+                  class="form-control"
+                  [class.is-invalid]="f.vaccinationDate.touched && f.vaccinationDate.invalid"
+                  id="vaccinationDate"
+                  formControlName="vaccinationDate"
+                  placeholder="Enter your vaccinationDate"
+                >
+                <div class="invalid-feedback" *ngIf="f.vaccinationDate.touched && f.vaccinationDate.invalid">
+                  <span *ngIf="f.vaccinationDate.errors.required">
+                    Vaccination Date is required.
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <div class="row mt-3">
+              <div class="col-12">
+                <button class="btn btn-warning ms-2" [disabled]="editUserForm.invalid">Update</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
